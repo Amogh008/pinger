@@ -1,0 +1,20 @@
+{
+  "name": "pinger-api",
+  "version": "1.0.0",
+  "description": "Tiny keep-alive service that exposes a ping endpoint and pings the wordcontrol-api on a timer so neither service goes to sleep.",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "private": true
+}

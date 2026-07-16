@@ -1,0 +1,30 @@
+const express = require('express');
+const cors = require('cors');
+
+function createApp() {
+  const app = express();
+
+  app.use(cors());
+  app.use(express.json());
+
+  app.get('/', (_req, res) => {
+    res.json({ status: 'ok' });
+  });
+
+  app.get('/pingtest', (_req, res) => {
+    res.json({ message: 'server active' });
+  });
+
+  app.use((req, res) => {
+    res.status(404).json({ error: 'Not found' });
+  });
+
+  app.use((err, _req, res, _next) => {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  });
+
+  return app;
+}
+
+module.exports = { createApp };
