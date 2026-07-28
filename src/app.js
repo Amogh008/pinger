@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const { executeKeepAliveQuery, hasAstra } = require('./astra');
 
 function createApp() {
   const app = express();
@@ -14,6 +15,18 @@ function createApp() {
   app.get('/pingtest', (_req, res) => {
     console.log('ping request received');
     res.json({ message: 'server active' });
+  });
+
+  app.get('/astra-keepalive', async (_req, res) => {
+    if (!hasAstra()) return res.status(503).end();
+
+    try {
+      await executeKeepAliveQuery();
+      return res.status(204).end();
+    } catch (err) {
+      console.warn('[astra-keep-alive] route query failed:', err.message);
+      return res.status(503).end();
+    }
   });
 
   app.use((req, res) => {
