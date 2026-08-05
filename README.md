@@ -2,9 +2,9 @@
 
 A tiny keep-alive companion service for the wordcontrol-api.
 
-- Exposes `GET /pingtest` → `{ "message": "server active" }` (same shape as wordcontrol-api).
-- Every 30 seconds it calls `WORDCONTROL_URL/pingtest` to keep that service awake.
-- The wordcontrol-api pings this service back every 30 seconds (via its own `PINGER_URL`).
+- Exposes `GET /pingtest?message=...` → `{ "message": "server active" }` and logs the received message at info level.
+- Every 30 seconds it calls `WORDCONTROL_URL/pingtest` with `Keep Alive for DLT`.
+- The wordcontrol-api pings this service back every 30 seconds with `Kepp ALive for Pinger` (via its own `PINGER_URL`).
 - Runs a minimal AstraDB lookup for `user_id = 123` at startup and every 12 hours.
 - Exposes `GET /astra-keepalive`, which performs the same lookup and returns an empty `204` response.
 - All ping failures are ignored — a missed ping never crashes or spams logs.
