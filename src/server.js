@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: process.env.ENV_FILE || '.env' });
 const { createApp } = require('./app');
 const { startKeepAlive } = require('./keepAlive');
 const { connectAstra } = require('./astra');

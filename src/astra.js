@@ -4,6 +4,8 @@ const path = require('path');
 const cassandra = require('cassandra-driver');
 
 let client = null;
+const tableSuffix = process.env.DB_TABLE_SUFFIX || '';
+if (tableSuffix && !/^_[a-z0-9_]+$/i.test(tableSuffix)) throw new Error('Invalid DB_TABLE_SUFFIX.');
 
 function resolveBundlePath() {
   const explicitPath = process.env.ASTRA_DB_SECURE_BUNDLE_PATH;
@@ -52,7 +54,7 @@ async function executeKeepAliveQuery() {
   // Intentionally discard the result. This read exists only to keep AstraDB
   // active and never exposes note data through the pinger API.
   await client.execute(
-    'SELECT id FROM notes WHERE user_id = ? LIMIT 1',
+    `SELECT id FROM notes${tableSuffix} WHERE user_id = ? LIMIT 1`,
     ['123'],
     { prepare: true },
   );
