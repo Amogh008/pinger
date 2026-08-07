@@ -22,6 +22,9 @@ async function main() {
   // Keep the wordcontrol-api awake by pinging it every 30 seconds.
   startKeepAlive(process.env.WORDCONTROL_URL);
 
+  // Keep dlt-session-tracker awake by pinging it every 30 seconds.
+  startKeepAlive(process.env.SESSION_TRACKER_URL);
+
   // Prevent AstraDB from hibernating by executing a minimal read every 12 hours.
   startAstraKeepAlive();
 }
