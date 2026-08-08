@@ -6,7 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "start": "ENV_FILE=.env.production node src/server.js",
-    "dev": "ENV_FILE=.env.development nodemon src/server.js"
+    "dev": "ENV_FILE=.env.development nodemon src/server.js",
+    "local": "ENV_FILE=.env.development nodemon src/server.js"
   },
   "dependencies": {
     "cassandra-driver": "^4.9.0",
